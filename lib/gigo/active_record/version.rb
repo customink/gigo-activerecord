@@ -1,5 +1,5 @@
 module GIGO
-  module Activerecord
+  module ActiveRecord
     VERSION = "1.0.0"
   end
 end

@@ -5,7 +5,7 @@ require 'gigo/active_record/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "gigo-activerecord"
-  spec.version       = GIGO::Activerecord::VERSION
+  spec.version       = GIGO::ActiveRecord::VERSION
   spec.authors       = ["Ken Collins"]
   spec.email         = ["kcollins@customink.com"]
   spec.description   = 'GIGO for ActiveRecord'
@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'minitest', '~> 5.0'
+  spec.add_development_dependency 'sqlite3'
 end
