@@ -1,7 +1,7 @@
 PATH
   remote: /Users/kencollins/Repositories/customink/gigo-activerecord
   specs:
-    gigo-activerecord (1.0.0)
+    gigo-activerecord (1.1.0)
       activerecord (>= 3.0)
       gigo
 

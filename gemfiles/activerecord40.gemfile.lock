@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails/rails.git
-  revision: bff89a2022aedec60929f6d6744eefc84a5c102a
+  revision: f47b4236e089b07cb683ee9b7ff8b06111a0ec10
   specs:
     activemodel (4.1.0.beta)
       activesupport (= 4.1.0.beta)
@@ -20,7 +20,7 @@ GIT
 PATH
   remote: /Users/kencollins/Repositories/customink/gigo-activerecord
   specs:
-    gigo-activerecord (1.0.0)
+    gigo-activerecord (1.1.0)
       activerecord (>= 3.0)
       gigo
 
