@@ -1,16 +1,16 @@
 
-appraise 'activesupport30' do
+appraise 'activerecord30' do
   gem 'activerecord', '~> 3.0.0'
 end
 
-appraise 'activesupport31' do
+appraise 'activerecord31' do
   gem 'activerecord', '~> 3.1.0'
 end
 
-appraise 'activesupport32' do
+appraise 'activerecord32' do
   gem 'activerecord', '~> 3.2.0'
 end
 
-appraise 'activesupport40' do
+appraise 'activerecord40' do
   gem 'activerecord', :github => 'rails/rails'
 end

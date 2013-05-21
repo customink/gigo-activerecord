@@ -24,23 +24,22 @@ module GIGO
       let(:data_iso8859) { "Med\xEDco".force_encoding(iso8859) }
 
       let(:user_data_utf8) { 
-        u = User.create! { |u| u.notes = {data: data_utf8} }
-        User.find(u.id)
+        User.create! { |u| u.notes = {data: data_utf8} }
       }
       let(:user_data_cp1252) { 
         u = User.create!
-        with_db_encoding(cp1252) { UserRaw.find(u.id).update_attribute :notes, {data: data_cp1252}.to_yaml }
-        User.find(u.id)
+        with_db_encoding(cp1252) { UserRaw.find(u.id).update_attribute :notes, "---\n:data: #{data_cp1252}\n" }
+        u
       }
       let(:user_data_binary) { 
         u = User.create!
-        with_db_encoding(binary) { UserRaw.find(u.id).update_attribute :notes, {data: data_binary}.to_yaml }
-        User.find(u.id)
+        with_db_encoding(binary) { UserRaw.find(u.id).update_attribute :notes, "---\n:data: #{data_binary}\n" }
+        u
       }
       let(:user_data_iso8859) { 
         u = User.create!
-        with_db_encoding(iso8859) { UserRaw.find(u.id).update_attribute :notes, {data: data_iso8859}.to_yaml }
-        User.find(u.id)
+        with_db_encoding(iso8859) { UserRaw.find(u.id).update_attribute :notes, "---\n:data: #{data_iso8859}\n" }
+        u
       }
 
 
@@ -48,12 +47,10 @@ module GIGO
 
       def setup_schema
         ::ActiveRecord::Base.class_eval do
-          silence do
-            connection.instance_eval do
-              create_table :users, :force => true do |t|
-                t.text :notes
-                t.timestamps
-              end
+          connection.instance_eval do
+            create_table :users, :force => true do |t|
+              t.text :notes
+              t.timestamps
             end
           end
         end
@@ -81,9 +78,43 @@ module GIGO
       end
 
       class UserGIGO < ::ActiveRecord::Base
+        self.table_name = :users
         serialize :notes, Hash
         # serialize_gigo :notes
-        self.table_name = :users
+
+        # 3.0
+        # def notes
+        #   existing_encoding = Encoding.default_internal
+        #   Encoding.default_internal = GIGO.encoding
+        #   @attributes['notes'] = GIGO.load(@attributes['notes'])
+        #   super
+        # ensure
+        #   Encoding.default_internal = existing_encoding
+        # end
+
+        # 3.1 & 3.2 & 4.0
+        serialized_attributes['notes'].class_eval do
+          def load_with_gigo(yaml)
+            existing_encoding = Encoding.default_internal
+            Encoding.default_internal = GIGO.encoding
+            yaml = GIGO.load(yaml)
+            load_without_gigo(yaml)
+          ensure
+            Encoding.default_internal = existing_encoding
+          end
+          alias_method_chain :load, :gigo
+        end
+
+        # 3.2 & 4.0        
+        # def notes
+        #   existing_encoding = Encoding.default_internal
+        #   Encoding.default_internal = GIGO.encoding
+        #   @attributes['notes'].value = GIGO.load(@attributes['notes'].value)
+        #   super
+        # ensure
+        #   Encoding.default_internal = existing_encoding
+        # end
+
       end
 
     end
