@@ -80,41 +80,7 @@ module GIGO
       class UserGIGO < ::ActiveRecord::Base
         self.table_name = :users
         serialize :notes, Hash
-        # serialize_gigo :notes
-
-        # 3.0
-        # def notes
-        #   existing_encoding = Encoding.default_internal
-        #   Encoding.default_internal = GIGO.encoding
-        #   @attributes['notes'] = GIGO.load(@attributes['notes'])
-        #   super
-        # ensure
-        #   Encoding.default_internal = existing_encoding
-        # end
-
-        # 3.1 & 3.2 & 4.0
-        serialized_attributes['notes'].class_eval do
-          def load_with_gigo(yaml)
-            existing_encoding = Encoding.default_internal
-            Encoding.default_internal = GIGO.encoding
-            yaml = GIGO.load(yaml)
-            load_without_gigo(yaml)
-          ensure
-            Encoding.default_internal = existing_encoding
-          end
-          alias_method_chain :load, :gigo
-        end
-
-        # 3.2 & 4.0        
-        # def notes
-        #   existing_encoding = Encoding.default_internal
-        #   Encoding.default_internal = GIGO.encoding
-        #   @attributes['notes'].value = GIGO.load(@attributes['notes'].value)
-        #   super
-        # ensure
-        #   Encoding.default_internal = existing_encoding
-        # end
-
+        serialize_gigo :notes
       end
 
     end
