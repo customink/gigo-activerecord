@@ -20,7 +20,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+#### Column Helpers
+
+This gem allows you to use GIGO with ActiveRecord in a few convenient ways. First by easily declaring that a column should be loaded thru GIGO. Assuming you have a `Note` model with a `subject` column.
+
+```ruby
+class Note < ActiveRecord::Base
+  gigo_column :subject
+end
+
+@note.subject # => "€20 – “Woohoo”"
+```
+
+GIGO extends your model in such a way that still allows you to define your own instance methods and super up thru the attribute method stack.
+
+```ruby
+class Note < ActiveRecord::Base
+  gigo_column :subject
+  def subject
+    super.upcase
+  end
+end
+
+@note.subject # => "€20 – “WOOHOO”"
+```
+
+#### Serialized Attributes
+
+Sometimes your serialized attributes need GIGO before loading the YAML.
+
+```ruby
+class Order < ActiveRecord::Base
+  serialize :notes, Hash
+  gigo_serialized_attribute :notes
+end
+```
 
 
 ## Contributing

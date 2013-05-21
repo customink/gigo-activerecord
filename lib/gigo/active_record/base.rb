@@ -20,14 +20,23 @@ module GIGO
         end
       end
 
-      def gigo_column(attr)
-        mod = defined?(GIGOColumns) ? const_get(:GIGOColumns) : const_set(:GIGOColumns, Module.new)
-        include mod
-        mod.module_eval <<-CODE, __FILE__, __LINE__
-          def #{attr}
-            GIGO.load(super)
+      def gigo_column(*attrs)
+        mod = begin
+          if defined?(GIGOColumns)
+            const_get(:GIGOColumns)
+          else
+            m = const_set(:GIGOColumns, Module.new)
+            include m
+            m
           end
-        CODE
+        end
+        attrs.each do |attr|
+          mod.module_eval <<-CODE, __FILE__, __LINE__
+            def #{attr}
+              GIGO.load(super)
+            end
+          CODE
+        end
       end
 
     end
