@@ -1,8 +1,4 @@
 
-appraise 'activerecord30' do
-  gem 'activerecord', '~> 3.0.0'
-end
-
 appraise 'activerecord31' do
   gem 'activerecord', '~> 3.1.0'
 end
