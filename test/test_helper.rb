@@ -42,6 +42,11 @@ module GIGO
         u
       }
 
+      let(:user_subject_binary) { 
+        u = User.create!
+        with_db_encoding(binary) { UserRaw.find(u.id).update_attribute :subject, data_binary }
+        u
+      }
 
       private
 
@@ -49,6 +54,7 @@ module GIGO
         ::ActiveRecord::Base.class_eval do
           connection.instance_eval do
             create_table :users, :force => true do |t|
+              t.text :subject
               t.text :notes
               t.timestamps
             end
@@ -80,7 +86,16 @@ module GIGO
       class UserGIGO < ::ActiveRecord::Base
         self.table_name = :users
         serialize :notes, Hash
-        serialize_gigo :notes
+        gigo_serialized_attribute :notes
+        gigo_column :subject
+      end
+
+      class UserGIGOWithSuperSubject < ::ActiveRecord::Base
+        self.table_name = :users
+        gigo_column :subject
+        def subject
+          super.upcase
+        end
       end
 
     end
