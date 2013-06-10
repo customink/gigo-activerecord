@@ -17,7 +17,11 @@ module GIGO
           attrs.each do |attr|
             mod.module_eval <<-CODE, __FILE__, __LINE__
               def #{attr}
-                GIGO.load(super)
+                begin
+                  GIGO.load(super)
+                rescue NoMethodError, ActiveModel::MissingAttributeError
+                  nil
+                end
               end
             CODE
           end

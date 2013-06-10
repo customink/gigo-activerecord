@@ -98,7 +98,7 @@ module GIGO
         self.table_name = :users
         gigo_column :subject
         def subject
-          super.upcase
+          super.try(:upcase)
         end
       end
 

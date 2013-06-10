@@ -69,14 +69,20 @@ module GIGO
 
         before { user_subject_binary }
 
-        let(:id)  { user_subject_binary.id }
+        let(:id)   { user_subject_binary.id }
+        let(:user) { UserGIGO.find(id) }
+        let(:user_without_subject) { UserGIGOWithSuperSubject.find(id) }
 
         it 'hooks into GIGO' do
-          UserGIGO.find(id).subject.must_equal "won’t"
+          user.subject.must_equal "won’t"
         end
 
         it 'allows user to further refine #subject method via super' do
-          UserGIGOWithSuperSubject.find(id).subject.must_equal "WON’T"
+          user_without_subject.subject.must_equal "WON’T"
+        end
+
+        it 'handles missing attributes errors gracefully for lean model selects' do
+          UserGIGOWithSuperSubject.select(:id).find(id).subject.must_be_nil
         end
 
       end
