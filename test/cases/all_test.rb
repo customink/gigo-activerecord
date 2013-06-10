@@ -41,14 +41,24 @@ module GIGO
 
         it 'allows serialized attribute to still work with nil/defaults' do
           user = UserGIGO.new
-          user.notes.must_equal Hash.new
-          user.save
-          user.reload.notes.must_equal Hash.new
+          if activerecord_30?
+            user.notes.must_be_nil
+            user.save
+            user.reload.notes.must_be_nil
+          else
+            user.notes.must_equal Hash.new
+            user.save
+            user.reload.notes.must_equal Hash.new
+          end
         end
 
         it 'allows serialized attribute to still work as normal' do
           user = UserGIGO.new
-          user.notes[:foo] = 'bar'
+          if activerecord_30?
+            user.notes = {:foo => 'bar'}
+          else
+            user.notes[:foo] = 'bar'
+          end
           user.save
           user.reload.notes[:foo].must_equal 'bar'
         end
