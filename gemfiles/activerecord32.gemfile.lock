@@ -1,7 +1,7 @@
 PATH
   remote: /Users/kencollins/Repositories/customink/gigo-activerecord
   specs:
-    gigo-activerecord (1.1.0)
+    gigo-activerecord (1.2.0)
       activerecord (>= 3.0)
       gigo
 
@@ -29,7 +29,7 @@ GEM
       activesupport (>= 3.0)
       ensure_valid_encoding (~> 0.5.3)
     i18n (0.6.1)
-    minitest (5.0.2)
+    minitest (5.0.4)
     multi_json (1.7.6)
     rake (10.0.4)
     sqlite3 (1.3.7)
