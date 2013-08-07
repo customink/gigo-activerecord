@@ -102,6 +102,11 @@ module GIGO
         end
       end
 
+      class UserWithDualGIGO < ::ActiveRecord::Base
+        gigo_column :subject
+        gigo_column :subject
+      end
+
     end
   end
 end

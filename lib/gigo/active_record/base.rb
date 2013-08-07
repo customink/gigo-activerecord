@@ -6,7 +6,7 @@ module GIGO
 
         def gigo_column(*attrs)
           mod = begin
-            if defined?(GIGOColumns)
+            if const_defined?(:GIGOColumns)
               const_get(:GIGOColumns)
             else
               m = const_set(:GIGOColumns, Module.new)

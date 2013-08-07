@@ -25,6 +25,10 @@ module GIGO
         let(:seralized_data_iso8859_raw)   { with_db_encoding(iso8859) { UserRaw.find(user_data_iso8859.id).notes } }
         let(:seralized_data_iso8859_gigo)  { with_db_encoding(iso8859) { UserGIGO.find(user_data_iso8859.id).notes[:data] } }
 
+        it 'allows dual calls' do
+          UserWithDualGIGO
+        end
+        
         it 'can setup different DB data in other encodings so other test assumptions work' do
           seralized_data_utf8_raw.encoding.must_equal     utf8
           seralized_data_cp1252_raw.encoding.must_equal   cp1252
