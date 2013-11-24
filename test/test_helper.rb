@@ -62,6 +62,11 @@ module GIGO
               t.text :notes
               t.timestamps
             end
+            create_table :legacies, :force => true do |t|
+              t.string :subject
+              t.text   :body
+              t.text   :data
+            end
           end
         end
       end
@@ -105,6 +110,14 @@ module GIGO
       class UserWithDualGIGO < ::ActiveRecord::Base
         gigo_column :subject
         gigo_column :subject
+      end
+
+      class LegacyAll < ::ActiveRecord::Base
+        self.table_name = :legacies
+      end
+
+      class LegacySome < ::ActiveRecord::Base
+        self.table_name = :legacies
       end
 
     end

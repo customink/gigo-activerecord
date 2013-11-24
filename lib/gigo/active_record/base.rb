@@ -27,6 +27,11 @@ module GIGO
           end
         end
 
+        def gigo_columns(*excepts)
+          cols = columns.select{ |c| c.type == :string || c.type == :text }.map{ |c| c.name.to_s } - excepts.map(&:to_s)
+          gigo_column(*cols)
+        end
+
       end
 
       module ThreeOhOnly

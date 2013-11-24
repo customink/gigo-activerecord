@@ -45,6 +45,14 @@ end
 @note.subject # => "€20 – “WOOHOO”"
 ```
 
+If you want to exten all `:string` and `:text` columns, use the `gigo_columns` method. All string/text columns will be GIGO'ized. Any arguments passed to `gigi_columns` will be exculded.
+
+```ruby
+class LegacyTable < ActiveRecord::Base
+  gigo_columns
+end
+```
+
 #### Serialized Attributes
 
 Sometimes your serialized attributes need GIGO before loading the YAML.

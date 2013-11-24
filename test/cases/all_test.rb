@@ -91,6 +91,23 @@ module GIGO
 
       end
 
+      describe 'gigo_columns' do
+
+        it 'converts all columns' do
+          LegacyAll.gigo_columns
+          assert LegacyAll::GIGOColumns.method_defined?(:subject)
+          assert LegacyAll::GIGOColumns.method_defined?(:body)
+          assert LegacyAll::GIGOColumns.method_defined?(:data)
+        end
+
+        it 'converts all but specified columns' do
+          LegacySome.gigo_columns :data
+          assert LegacySome::GIGOColumns.method_defined?(:subject)
+          assert LegacySome::GIGOColumns.method_defined?(:body)
+          refute LegacySome::GIGOColumns.method_defined?(:data)
+        end
+
+      end
       
     end
   end
