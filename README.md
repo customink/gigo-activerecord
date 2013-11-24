@@ -22,7 +22,7 @@ Or install it yourself as:
 
 #### Column Helpers
 
-This gem allows you to use GIGO with ActiveRecord in a few convenient ways. First by easily declaring that a column should be loaded thru GIGO. Assuming you have a `Note` model with a `subject` column.
+This gem allows you to use GIGO with ActiveRecord in a few convenient ways. First by easily declaring that a column should be loaded through GIGO. Assuming you have a `Note` model with a `subject` column.
 
 ```ruby
 class Note < ActiveRecord::Base
@@ -32,7 +32,7 @@ end
 @note.subject # => "€20 – “Woohoo”"
 ```
 
-GIGO extends your model in such a way that still allows you to define your own instance methods and super up thru the attribute method stack.
+GIGO extends your model in such a way that still allows you to define your own instance methods and super up through the attribute method stack.
 
 ```ruby
 class Note < ActiveRecord::Base
@@ -45,7 +45,7 @@ end
 @note.subject # => "€20 – “WOOHOO”"
 ```
 
-If you want to exten all `:string` and `:text` columns, use the `gigo_columns` method. All string/text columns will be GIGO'ized. Any arguments passed to `gigi_columns` will be exculded.
+If you want to extend all `:string` and `:text` columns, use the `gigo_columns` method. All string/text columns will be GIGO'ized. Any arguments passed to `gigi_columns` will be excluded.
 
 ```ruby
 class LegacyTable < ActiveRecord::Base
@@ -75,9 +75,8 @@ $ bundle exec rake appraisal:setup
 $ bundle exec rake appraisal test
 ```
 
-We use the [appraisal](https://github.com/thoughtbot/appraisal) gem from Thoughtbot to help us generate the individual gemfiles for each ActiveSupport version and to run the tests locally against each generated Gemfile. The `rake appraisal test` command actually runs our test suite against all Rails versions in our `Appraisal` file. If you want to run the tests for a specific Rails version, use `rake -T` for a list. For example, the following command will run the tests for Rails 3.2 only.
+We use the [appraisal](https://github.com/thoughtbot/appraisal) gem from Thoughtbot to help us generate the individual Gemfiles for each ActiveSupport version and to run the tests locally against each generated Gemfile. The `rake appraisal test` command actually runs our test suite against all Rails versions in our `Appraisal` file. If you want to run the tests for a specific Rails version, use `rake -T` for a list. For example, the following command will run the tests for Rails 3.2 only.
 
 ```shell
 $ bundle exec rake appraisal:activerecord32 test
 ```
-
