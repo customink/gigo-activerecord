@@ -44,7 +44,7 @@ module GIGO
         end
 
         module InstanceMethods
-          
+
           private
 
           def object_from_yaml(string)
@@ -84,7 +84,7 @@ module GIGO
             end
           end
         end
-        
+
       end
 
     end

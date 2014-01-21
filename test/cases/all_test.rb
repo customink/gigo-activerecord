@@ -28,7 +28,7 @@ module GIGO
         it 'allows dual calls' do
           UserWithDualGIGO
         end
-        
+
         it 'can setup different DB data in other encodings so other test assumptions work' do
           seralized_data_utf8_raw.encoding.must_equal     utf8
           seralized_data_cp1252_raw.encoding.must_equal   cp1252
@@ -108,7 +108,7 @@ module GIGO
         end
 
       end
-      
+
     end
   end
 end

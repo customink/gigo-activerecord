@@ -23,26 +23,26 @@ module GIGO
       let(:data_binary)  { "won\x92t".force_encoding(binary) }
       let(:data_iso8859) { "Med\xEDco".force_encoding(iso8859) }
 
-      let(:user_data_utf8) { 
+      let(:user_data_utf8) {
         User.create! { |u| u.notes = {data: data_utf8} }
       }
-      let(:user_data_cp1252) { 
+      let(:user_data_cp1252) {
         u = User.create!
         with_db_encoding(cp1252) { UserRaw.find(u.id).update_attribute :notes, "---\n:data: #{data_cp1252}\n" }
         u
       }
-      let(:user_data_binary) { 
+      let(:user_data_binary) {
         u = User.create!
         with_db_encoding(binary) { UserRaw.find(u.id).update_attribute :notes, "---\n:data: #{data_binary}\n" }
         u
       }
-      let(:user_data_iso8859) { 
+      let(:user_data_iso8859) {
         u = User.create!
         with_db_encoding(iso8859) { UserRaw.find(u.id).update_attribute :notes, "---\n:data: #{data_iso8859}\n" }
         u
       }
 
-      let(:user_subject_binary) { 
+      let(:user_subject_binary) {
         u = User.create!
         with_db_encoding(binary) { UserRaw.find(u.id).update_attribute :subject, data_binary }
         u
