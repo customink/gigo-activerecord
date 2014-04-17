@@ -20,6 +20,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency     'activerecord', '>= 3.0', '< 5.0'
   spec.add_development_dependency 'appraisal'
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'minitest', '~> 4.2'
+  spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'sqlite3'
 end
