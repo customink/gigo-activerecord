@@ -1,20 +1,16 @@
 
-appraise 'activerecord30' do
-  gem 'activerecord', '~> 3.0.0'
+appraise 'rails32' do
+  gem 'rails', '~> 3.2.0'
 end
 
-appraise 'activerecord31' do
-  gem 'activerecord', '~> 3.1.0'
+appraise 'rails40' do
+  gem 'rails', '4.0.0'
 end
 
-appraise 'activerecord32' do
-  gem 'activerecord', '~> 3.2.0'
+appraise 'rails41' do
+  gem 'rails', '~> 4.1.0'
 end
 
-appraise 'activerecord40' do
-  gem 'activerecord', '~> 4.0.0'
-end
-
-appraise 'activerecord41' do
-  gem 'activerecord', '~> 4.1.0'
+appraise 'rails42' do
+  gem 'rails', '~> 4.2.0'
 end
