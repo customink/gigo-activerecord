@@ -32,6 +32,14 @@ module GIGO
           gigo_column(*cols)
         end
 
+        def gigoize_attributes
+          after_initialize :_gigoize_attributes
+          define_method :_gigoize_attributes do
+            GIGOColumns.instance_methods.each { |name| self.send(name) }
+          end
+          private :_gigoize_attributes
+        end
+
       end
 
       module ThreeOhOnly
