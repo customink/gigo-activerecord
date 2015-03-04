@@ -32,12 +32,12 @@ module GIGO
           gigo_column(*cols)
         end
 
-        def gigoize_attributes
-          after_initialize :_gigoize_attributes
-          define_method :_gigoize_attributes do
+        def after_initialize_gigoize_attributes
+          after_initialize :gigoize_attributes
+          define_method :gigoize_attributes do
             self.class.const_get(:GIGOColumns).instance_methods.each { |name| self.send(name) }
           end
-          private :_gigoize_attributes
+          private :gigoize_attributes
         end
 
       end
