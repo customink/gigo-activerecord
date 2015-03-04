@@ -35,7 +35,7 @@ module GIGO
         def gigoize_attributes
           after_initialize :_gigoize_attributes
           define_method :_gigoize_attributes do
-            self.class.const_set(:GIGOColumns).instance_methods.each { |name| self.send(name) }
+            self.class.const_get(:GIGOColumns).instance_methods.each { |name| self.send(name) }
           end
           private :_gigoize_attributes
         end
