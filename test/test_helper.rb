@@ -11,7 +11,7 @@ module GIGO
   module ActiveRecord
     class TestCase < MiniTest::Spec
 
-      before { setup_schema ; setup_encodings }
+      before { setup_schema ; setup_encodings ; define_classes }
 
       let(:utf8)    { Encoding::UTF_8 }
       let(:cp1252)  { Encoding::CP1252 }
@@ -84,40 +84,44 @@ module GIGO
         setup_encodings
       end
 
-      class User < ::ActiveRecord::Base
-        serialize :notes, Hash
-      end
+      def define_classes
+        eval <<-END
+          class User < ::ActiveRecord::Base
+            serialize :notes, Hash
+          end
 
-      class UserRaw < ::ActiveRecord::Base
-        self.table_name = :users
-      end
+          class UserRaw < ::ActiveRecord::Base
+            self.table_name = :users
+          end
 
-      class UserGIGO < ::ActiveRecord::Base
-        self.table_name = :users
-        serialize :notes, Hash
-        gigo_serialized_attribute :notes
-        gigo_column :subject
-      end
+          class UserGIGO < ::ActiveRecord::Base
+            self.table_name = :users
+            serialize :notes, Hash
+            gigo_serialized_attribute :notes
+            gigo_column :subject
+          end
 
-      class UserGIGOWithSuperSubject < ::ActiveRecord::Base
-        self.table_name = :users
-        gigo_column :subject
-        def subject
-          super.try(:upcase)
-        end
-      end
+          class UserGIGOWithSuperSubject < ::ActiveRecord::Base
+            self.table_name = :users
+            gigo_column :subject
+            def subject
+              super.try(:upcase)
+            end
+          end
 
-      class UserWithDualGIGO < ::ActiveRecord::Base
-        gigo_column :subject
-        gigo_column :subject
-      end
+          class UserWithDualGIGO < ::ActiveRecord::Base
+            gigo_column :subject
+            gigo_column :subject
+          end
 
-      class LegacyAll < ::ActiveRecord::Base
-        self.table_name = :legacies
-      end
+          class LegacyAll < ::ActiveRecord::Base
+            self.table_name = :legacies
+          end
 
-      class LegacySome < ::ActiveRecord::Base
-        self.table_name = :legacies
+          class LegacySome < ::ActiveRecord::Base
+            self.table_name = :legacies
+          end
+        END
       end
 
     end
