@@ -60,7 +60,7 @@ module GIGO
             create_table :users, :force => true do |t|
               t.text :subject
               t.text :notes
-              t.timestamps
+              t.timestamps(null: false)
             end
             create_table :legacies, :force => true do |t|
               t.string :subject
