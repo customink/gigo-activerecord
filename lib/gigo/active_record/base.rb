@@ -77,7 +77,7 @@ module GIGO
 
         def gigo_serialized_attribute(*attrs)
           attrs.each do |attr|
-            yaml_column = self.serialized_attributes[attr.to_s]
+            yaml_column = get_yaml_column(attr.to_s)
             next unless yaml_column
             yaml_column.class_eval do
               def load_with_gigo(yaml)
@@ -93,6 +93,18 @@ module GIGO
           end
         end
 
+        def get_yaml_column(attr)
+          if defined? ::ActiveRecord::Type::Serialized
+            column = self.columns_hash[attr]
+            if column.cast_type.is_a?(::ActiveRecord::Type::Serialized)
+              column.cast_type.coder
+            else
+              nil
+            end
+          else
+            self.serialized_attributes[attr.to_s]
+          end
+        end
       end
 
     end
