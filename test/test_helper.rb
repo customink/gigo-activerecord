@@ -50,10 +50,6 @@ module GIGO
 
       private
 
-      def activerecord_30?
-        ::ActiveRecord::VERSION::STRING < '3.1'
-      end
-
       def setup_schema
         ::ActiveRecord::Base.class_eval do
           connection.instance_eval do
