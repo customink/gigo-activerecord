@@ -3,6 +3,7 @@ require 'bundler' ; Bundler.require :development, :test
 require 'gigo-activerecord'
 require 'minitest/autorun'
 require 'logger'
+require 'sqlite3_monkey_patch'
 
 ActiveRecord::Base.logger = Logger.new('/dev/null')
 ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: ':memory:'
@@ -90,8 +91,7 @@ module GIGO
 
       class UserGIGO < ::ActiveRecord::Base
         self.table_name = :users
-        serialize :notes, Hash
-        gigo_serialized_attribute :notes
+        serialize :notes, gigo_coder_for(Hash)
         gigo_column :subject
       end
 

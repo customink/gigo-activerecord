@@ -40,68 +40,44 @@ module GIGO
           private :gigoize_attributes
         end
 
-      end
-
-      module ThreeOhOnly
-
-        include Shared
-
-        def gigo_serialized_attribute(*attrs)
-          # ActiveRecord 3.0 has no proper hooks. So we fix all YAML object laoding for this class.
-          include InstanceMethods
+        def gigo_coder_for(klass)
+          coder = Class.new
+          coder.cattr_accessor :klass
+          coder.klass = klass
+          coder.extend GigoCoder
+          return coder
         end
 
-        module InstanceMethods
-
-          private
-
-          def object_from_yaml(string)
-            return string unless string.is_a?(String) && string =~ /^---/
-            begin
-              existing_encoding = Encoding.default_internal
-              Encoding.default_internal = GIGO.encoding
-              s = GIGO.load(string)
-              YAML::load(s) rescue s
-            ensure
-              Encoding.default_internal = existing_encoding
+        module GigoCoder
+          def load(yaml)
+            return klass.new if yaml.nil?
+            existing_encoding = Encoding.default_internal
+            Encoding.default_internal = GIGO.encoding
+            value = YAML.load(GIGO.load(yaml))
+            unless value.is_a?(klass)
+              raise SerializationTypeMismatch, "Attribute was supposed to be a #{klass.to_s}, but was a #{hash.class}."
             end
+            value
+          ensure
+            Encoding.default_internal = existing_encoding
           end
 
-        end
-
-      end
-
-      module ThreeOneAndUp
-
-        include Shared
-
-        def gigo_serialized_attribute(*attrs)
-          attrs.each do |attr|
-            yaml_column = self.serialized_attributes[attr.to_s]
-            next unless yaml_column
-            yaml_column.class_eval do
-              def load_with_gigo(yaml)
-                existing_encoding = Encoding.default_internal
-                Encoding.default_internal = GIGO.encoding
-                yaml = GIGO.load(yaml)
-                load_without_gigo(yaml)
-              ensure
-                Encoding.default_internal = existing_encoding
-              end
-              alias_method_chain :load, :gigo
+          def dump(value)
+            return klass.new.to_yaml if value.nil?
+            unless value.is_a?(klass)
+              raise SerializationTypeMismatch, "Attribute was supposed to be a #{klass.to_s}, but was a #{value.class}."
             end
+            value.to_yaml
           end
         end
-
       end
 
+      module FiveAndUp
+        include Shared
+      end
     end
   end
 end
 
-if ActiveRecord::VERSION::STRING < '3.1'
-  ActiveRecord::Base.extend GIGO::ActiveRecord::Base::ThreeOhOnly
-else
-  ActiveRecord::Base.extend GIGO::ActiveRecord::Base::ThreeOneAndUp
-end
+ActiveRecord::Base.extend GIGO::ActiveRecord::Base::FiveAndUp
 
