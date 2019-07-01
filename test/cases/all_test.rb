@@ -5,7 +5,7 @@ module GIGO
   module ActiveRecord
     class AllTest < TestCase
 
-      describe 'gigo_serialized_attribute' do
+      describe 'gigo_coder_for' do
 
         before { user_data_utf8 ; user_data_cp1252 ; user_data_binary ; user_data_iso8859 }
 

@@ -59,8 +59,7 @@ Sometimes your serialized attributes need GIGO before loading the YAML.
 
 ```ruby
 class Order < ActiveRecord::Base
-  serialize :notes, Hash
-  gigo_serialized_attribute :notes
+  serialize :notes, gigo_coder_for(Hash)
 end
 ```
 
