@@ -66,7 +66,7 @@ end
 
 ## Contributing
 
-GIGO is fully tested with ActiveRecord 5 and upward. If you detect a problem, open up a github issue or fork the repo and help out. After you fork or clone the repository, the following commands will get you up and running on the test suite.
+GIGO is fully tested with ActiveRecord 4.2 - 5 and upward. If you detect a problem, open up a github issue or fork the repo and help out. After you fork or clone the repository, the following commands will get you up and running on the test suite.
 
 ```shell
 $ bundle install
