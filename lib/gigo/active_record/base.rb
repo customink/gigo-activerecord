@@ -46,11 +46,11 @@ module GIGO
 
         def initialize(klass)
           @klass = klass
+          @default_internal = Encoding.default_internal
         end
 
         def load(yaml)
           return klass.new if yaml.nil?
-          existing_encoding = Encoding.default_internal
           Encoding.default_internal = GIGO.encoding
           value = YAML.load(GIGO.load(yaml))
           unless value.is_a?(klass)
@@ -58,7 +58,7 @@ module GIGO
           end
           value
         ensure
-          Encoding.default_internal = existing_encoding
+          Encoding.default_internal = @default_internal
         end
 
         def dump(value)
