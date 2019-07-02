@@ -5,7 +5,7 @@ module GIGO
   module ActiveRecord
     class AllTest < TestCase
 
-      describe 'gigo_serialized_attribute' do
+      describe 'gigo_coder_for' do
 
         before { user_data_utf8 ; user_data_cp1252 ; user_data_binary ; user_data_iso8859 }
 
@@ -45,24 +45,14 @@ module GIGO
 
         it 'allows serialized attribute to still work with nil/defaults' do
           user = UserGIGO.new
-          if activerecord_30?
-            user.notes.must_be_nil
-            user.save
-            user.reload.notes.must_be_nil
-          else
-            user.notes.must_equal Hash.new
-            user.save
-            user.reload.notes.must_equal Hash.new
-          end
+          user.notes.must_equal Hash.new
+          user.save
+          user.reload.notes.must_equal Hash.new
         end
 
         it 'allows serialized attribute to still work as normal' do
           user = UserGIGO.new
-          if activerecord_30?
-            user.notes = {:foo => 'bar'}
-          else
-            user.notes[:foo] = 'bar'
-          end
+          user.notes[:foo] = 'bar'
           user.save
           user.reload.notes[:foo].must_equal 'bar'
         end
