@@ -1,8 +1,8 @@
 PATH
   remote: ..
   specs:
-    gigo-activerecord (2.0.0)
-      activerecord (>= 5.0)
+    gigo-activerecord (2.0.1)
+      activerecord (>= 4.2.0)
       gigo
 
 GEM
