@@ -44,6 +44,9 @@ module GIGO
       class GigoCoder
         attr_reader :klass
 
+        class SerializationTypeMismatch < StandardError
+        end
+
         def initialize(klass)
           @klass = klass
           @default_internal = Encoding.default_internal
@@ -74,4 +77,3 @@ module GIGO
 end
 
 ActiveRecord::Base.extend GIGO::ActiveRecord::Base
-
