@@ -57,7 +57,7 @@ module GIGO
           Encoding.default_internal = GIGO.encoding
           value = YAML.load(GIGO.load(yaml))
           unless value.is_a?(klass)
-            raise SerializationTypeMismatch, "Attribute was supposed to be a #{klass.to_s}, but was a #{hash.class}."
+            raise SerializationTypeMismatch, "Attribute was supposed to be a #{klass.to_s}, but was a #{value.class}."
           end
           value
         ensure
