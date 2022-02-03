@@ -54,7 +54,7 @@ module GIGO
           Encoding.default_internal = GIGO.encoding
           value = YAML.load(GIGO.load(yaml))
           unless value.is_a?(klass)
-            raise SerializationTypeMismatch, "Attribute was supposed to be a #{klass.to_s}, but was a #{hash.class}."
+            raise ::ActiveRecord::SerializationTypeMismatch, "Attribute was supposed to be a #{klass.to_s}, but was a #{value.class}: #{value.inspect}"
           end
           value
         ensure
@@ -64,7 +64,7 @@ module GIGO
         def dump(value)
           return klass.new.to_yaml if value.nil?
           unless value.is_a?(klass)
-            raise SerializationTypeMismatch, "Attribute was supposed to be a #{klass.to_s}, but was a #{value.class}."
+            raise ::ActiveRecord::SerializationTypeMismatch, "Attribute was supposed to be a #{klass.to_s}, but was a #{value.class}: #{value.inspect}"
           end
           value.to_yaml
         end
@@ -74,4 +74,3 @@ module GIGO
 end
 
 ActiveRecord::Base.extend GIGO::ActiveRecord::Base
-
