@@ -6,8 +6,8 @@ require 'gigo/active_record/version'
 Gem::Specification.new do |spec|
   spec.name          = "gigo-activerecord"
   spec.version       = GIGO::ActiveRecord::VERSION
-  spec.authors       = ["Ken Collins"]
-  spec.email         = ["kcollins@customink.com"]
+  spec.authors       = ["Ken Collins", "Tailor Made"]
+  spec.email         = ["kcollins@customink.com", "tailor.made@customink.com"]
   spec.description   = 'GIGO for ActiveRecord'
   spec.summary       = 'GIGO for ActiveRecord'
   spec.homepage      = 'http://github.com/customink/gigo-activerecord'
