@@ -52,7 +52,7 @@ module GIGO
         def load(yaml)
           return klass.new if yaml.nil?
           Encoding.default_internal = GIGO.encoding
-          value = YAML.load(GIGO.load(yaml))
+          value = YAML.unsafe_load(GIGO.load(yaml))
           unless value.is_a?(klass)
             raise ::ActiveRecord::SerializationTypeMismatch, "Attribute was supposed to be a #{klass.to_s}, but was a #{value.class}: #{value.inspect}"
           end

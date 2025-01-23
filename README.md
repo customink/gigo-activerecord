@@ -45,7 +45,7 @@ end
 @note.subject # => "€20 – “WOOHOO”"
 ```
 
-If you want to extend all `:string` and `:text` columns, use the `gigo_columns` method. All string/text columns will be GIGO'ized. Any arguments passed to `gigi_columns` will be excluded.
+If you want to extend all `:string` and `:text` columns, use the `gigo_columns` method. All string/text columns will be GIGO'ized. Any arguments passed to `gigo_columns` will be excluded.
 
 ```ruby
 class LegacyTable < ActiveRecord::Base
