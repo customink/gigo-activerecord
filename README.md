@@ -1,5 +1,7 @@
 # GIGO (Garbage In, Garbage Out) For ActiveRecord
 
+[![Overall](https://img.shields.io/endpoint?style=flat&url=https://app.opslevel.com/api/service_level/bNDsHWL3nyAn_2MVnU9GBVmg2gAX95SqLdH4vbs9sMY)](https://app.opslevel.com/services/gigo-activerecord/maturity-report)
+
 See the [GIGO](http://github.com/customink/gigo) project for general information.
 
 
